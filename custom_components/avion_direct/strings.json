@@ -1,0 +1,24 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Configure Avi-on Direct Connection",
+                "description": "Set up your Avi-on account and mesh configuration",
+                "data": {
+                    "username": "Avi-on Account Email",
+                    "password": "Avi-on Account Password",
+                    "settings_yaml": "Path to Settings YAML File"
+                }
+            }
+        },
+        "error": {
+            "missing_username": "Email is required",
+            "missing_password": "Password is required",
+            "missing_settings_yaml": "Settings YAML path is required",
+            "unknown": "An unexpected error occurred"
+        },
+        "abort": {
+            "already_configured": "This account is already configured"
+        }
+    }
+}

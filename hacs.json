@@ -1,0 +1,7 @@
+{
+    "name": "Avi-on Mesh",
+    "render_readme": true,
+    "domains": [
+        "light"
+    ]
+}

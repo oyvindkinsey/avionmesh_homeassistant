@@ -1,4 +1,4 @@
-"""Avi-on Direct service for Home Assistant."""
+"""Avi-on Mesh service for Home Assistant."""
 import asyncio
 import logging
 import sys
@@ -14,9 +14,9 @@ from homeassistant.helpers.dispatcher import async_dispatcher_send
 # Add the source module to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from avionmqtt.Http import http_list_devices
-from avionmqtt.Mesh import apply_overrides_from_settings
-from avionmqtt.mesh_handler import mesh_handler
+from avionhttp import http_list_devices
+from avionmesh.Mesh import apply_overrides_from_settings
+from avionmesh import mesh_handler
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ class MeshStatus:
     data: dict
 
 
-class AvionDirectService:
+class AvionMeshService:
     """Service that manages Avi-on mesh connection for Home Assistant."""
 
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry):
@@ -54,7 +54,7 @@ class AvionDirectService:
 
     async def async_initialize(self) -> None:
         """Initialize the service and load configuration."""
-        _LOGGER.info("Initializing Avi-on Direct service")
+        _LOGGER.info("Initializing Avi-on Mesh service")
 
         # Build settings from config entry data (moved from YAML into UI)
         settings = {}
@@ -169,7 +169,7 @@ class AvionDirectService:
 
     async def async_shutdown(self) -> None:
         """Shutdown the service."""
-        _LOGGER.info("Shutting down Avi-on Direct service")
+        _LOGGER.info("Shutting down Avi-on Mesh service")
 
         if self._mesh_handler_task and not self._mesh_handler_task.done():
             self._mesh_handler_task.cancel()

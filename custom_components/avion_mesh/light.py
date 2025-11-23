@@ -1,4 +1,4 @@
-"""Light platform for Avi-on Direct integration."""
+"""Light platform for Avi-on Mesh integration."""
 import json
 import logging
 from typing import Any, List, Optional
@@ -18,7 +18,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from avionmqtt.Mesh import CAPABILITIES, PRODUCT_NAMES
 
 from . import DOMAIN
-from .ha_service import SIGNAL_MESH_STATUS_UPDATE, AvionDirectService
+from .ha_service import SIGNAL_MESH_STATUS_UPDATE, AvionMeshService
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,8 +28,8 @@ async def async_setup_entry(
     config_entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up light entities for Avi-on Direct."""
-    service: AvionDirectService = hass.data[DOMAIN][config_entry.entry_id]
+    """Set up light entities for Avi-on Mesh."""
+    service: AvionMeshService = hass.data[DOMAIN][config_entry.entry_id]
     location = service.get_location()
 
     if not location:
@@ -86,7 +86,7 @@ async def async_setup_entry(
     if groups_cfg.get("import"):
         for group in location.get("groups", []):
             if _should_include(group, groups_cfg):
-                entities.append(AvionDirectLight(service, group))
+                entities.append(AvionMeshLight(service, group))
 
     # Handle devices (respect exclude_in_group behavior)
     if devices_cfg.get("exclude_in_group"):
@@ -99,13 +99,13 @@ async def async_setup_entry(
     if devices_cfg.get("import"):
         for device in location.get("devices", []):
             if _should_include(device, devices_cfg):
-                entities.append(AvionDirectLight(service, device))
+                entities.append(AvionMeshLight(service, device))
 
     # Optional 'all' entity
     if all_cfg:
         all_name = all_cfg.get("name", "All Avi-on Devices")
         entities.append(
-            AvionDirectLight(
+            AvionMeshLight(
                 service, {"pid": "avion_all", "product_id": 0, "avid": 0, "name": all_name}
             )
         )
@@ -115,10 +115,10 @@ async def async_setup_entry(
         _LOGGER.info(f"Added {len(entities)} light entities")
 
 
-class AvionDirectLight(LightEntity):
+class AvionMeshLight(LightEntity):
     """Representation of an Avi-on light."""
 
-    def __init__(self, service: AvionDirectService, device: dict):
+    def __init__(self, service: AvionMeshService, device: dict):
         """Initialize the light."""
         self.service = service
         self._device = device

@@ -1,4 +1,4 @@
-"""Avi-on Direct Mesh integration for Home Assistant."""
+"""Avi-on Mesh Mesh integration for Home Assistant."""
 import asyncio
 import logging
 from typing import Optional
@@ -10,11 +10,11 @@ from homeassistant.core import Config, HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
-from .ha_service import AvionDirectService
+from .ha_service import AvionMeshService
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = "avion_direct"
+DOMAIN = "avion_mesh"
 CONF_SETTINGS_YAML = "settings_yaml"
 
 CONFIG_SCHEMA = vol.Schema(
@@ -32,16 +32,16 @@ CONFIG_SCHEMA = vol.Schema(
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Set up the Avi-on Direct integration."""
+    """Set up the Avi-on Mesh integration."""
     hass.data.setdefault(DOMAIN, {})
     return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Avi-on Direct from a config entry."""
-    _LOGGER.info("Setting up Avi-on Direct integration")
+    """Set up Avi-on Mesh from a config entry."""
+    _LOGGER.info("Setting up Avi-on Mesh integration")
 
-    service = AvionDirectService(hass, entry)
+    service = AvionMeshService(hass, entry)
 
     try:
         await service.async_initialize()
@@ -50,16 +50,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Forward entry setup to light platform
         await hass.config_entries.async_forward_entry_setups(entry, ["light"])
 
-        _LOGGER.info("Avi-on Direct integration setup completed successfully")
+        _LOGGER.info("Avi-on Mesh integration setup completed successfully")
         return True
     except Exception as e:
-        _LOGGER.error(f"Failed to set up Avi-on Direct integration: {e}")
+        _LOGGER.error(f"Failed to set up Avi-on Mesh integration: {e}")
         return False
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    service: AvionDirectService = hass.data[DOMAIN][entry.entry_id]
+    service: AvionMeshService = hass.data[DOMAIN][entry.entry_id]
     await service.async_shutdown()
 
     # Unload platforms

@@ -1,4 +1,4 @@
-"""Config flow for Avi-on Direct integration."""
+"""Config flow for Avi-on Mesh integration."""
 import logging
 from typing import Any, Dict, Optional
 
@@ -13,8 +13,8 @@ from . import DOMAIN
 _LOGGER = logging.getLogger(__name__)
 
 
-class AvionDirectConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for Avi-on Direct."""
+class AvionMeshConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for Avi-on Mesh."""
 
     VERSION = 1
 
@@ -46,7 +46,7 @@ class AvionDirectConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
                 if not errors:
                     return self.async_create_entry(
-                        title=f"Avi-on Direct ({username})",
+                        title=f"Avi-on Mesh ({username})",
                         data={
                             CONF_USERNAME: username,
                             CONF_PASSWORD: password,
@@ -101,11 +101,11 @@ class AvionDirectConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this integration."""
-        return AvionDirectOptionsFlow(config_entry)
+        return AvionMeshOptionsFlow(config_entry)
 
 
-class AvionDirectOptionsFlow(config_entries.OptionsFlow):
-    """Handle options for Avi-on Direct."""
+class AvionMeshOptionsFlow(config_entries.OptionsFlow):
+    """Handle options for Avi-on Mesh."""
 
     def __init__(self, config_entry):
         """Initialize options flow."""

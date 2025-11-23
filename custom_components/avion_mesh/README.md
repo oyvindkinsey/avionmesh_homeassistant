@@ -1,10 +1,10 @@
-# Avi-on Direct Mesh - Home Assistant Custom Integration
+# Avi-on Mesh Mesh - Home Assistant Custom Integration
 
 A direct Home Assistant integration for Avi-on mesh lighting systems that bypasses MQTT and connects directly to your lights.
 
 ## Features
 
-- 🔌 Direct connection to Avi-on mesh network (no MQTT broker required)
+- 🔌 Mesh connection to Avi-on mesh network (no MQTT broker required)
 - 💡 Full control of dimmable lights with brightness adjustment
 - 🌡️ Color temperature support for compatible devices
 - 🏠 Seamless Home Assistant integration
@@ -18,7 +18,7 @@ A direct Home Assistant integration for Avi-on mesh lighting systems that bypass
 1. Open Home Assistant
 2. Go to **Settings** → **Devices & Services** → **Custom repositories**
 3. Add this repository: `https://github.com/oyvindkinsey/avionmqtt`
-4. Search for "Avi-on Direct Mesh" in HACS and install it
+4. Search for "Avi-on Mesh Mesh" in HACS and install it
 5. Restart Home Assistant
 
 ### 2. Configuration
@@ -26,7 +26,7 @@ A direct Home Assistant integration for Avi-on mesh lighting systems that bypass
 #### Option A: UI Configuration (Recommended)
 
 1. Go to **Settings** → **Devices & Services** → **Create Automation**
-2. Select "Avi-on Direct Mesh"
+2. Select "Avi-on Mesh Mesh"
 3. Enter your Avi-on account credentials (email and password)
 4. Specify the path to your settings YAML file (e.g., `/config/avion_settings.yaml`)
 5. Click "Create"
